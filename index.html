@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Veronica Carraro — Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--bg:#1a1a1a;--bg2:#222;--bg3:#272727;--green:#6ee87a;--text:#fff;--dim:#aaa;--muted:#666;--border:#333;--r:10px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--bg2);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 40px;justify-content:space-between;}
+.nav-logo{font-weight:600;font-size:14px;cursor:pointer;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-link{background:none;border:none;border-bottom:2px solid transparent;color:var(--dim);font-size:14px;cursor:pointer;padding:4px 12px;font-family:inherit;transition:.15s;}
+.nav-link:hover{color:var(--text);}
+.nav-link.active{color:var(--text);border-bottom-color:var(--green);}
+.nav-cta{background:var(--green);color:#000;border:none;border-radius:6px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-left:8px;}
+.page{display:none;padding-top:52px;min-height:100vh;}
+.page.active{display:block;}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 64px 28px;margin-top:60px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:32px;}
+.footer-brand{font-weight:600;font-size:14px;margin-bottom:8px;}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.footer-col-title{font-size:13px;font-weight:600;margin-bottom:14px;}
+.f-link{display:block;font-size:13px;color:var(--dim);margin-bottom:8px;cursor:pointer;background:none;border:none;font-family:inherit;text-align:left;padding:0;}
+.f-link:hover{color:var(--text);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:20px;text-align:center;font-size:12px;color:var(--muted);}
+
+/* IMG SLOT UPLOAD */
+.img-slot{position:relative;cursor:pointer;overflow:hidden;}
+.slot-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.55);opacity:0;transition:.2s;font-size:12px;color:#fff;gap:6px;pointer-events:none;}
+.img-slot:hover .slot-overlay{opacity:1;}
+.slot-overlay span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:6px 14px;font-size:11px;font-weight:500;}
+.slot-img{display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.slot-mock{width:100%;height:100%;}
+
+/* CARDS */
+.project-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.2s;}
+.project-card:hover{border-color:#555;transform:translateY(-2px);}
+.card-img{height:155px;background:#111;border-bottom:1px solid var(--border);}
+.card-body{padding:16px;cursor:pointer;}
+.card-tag-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.card-tag{font-size:11px;color:var(--green);font-weight:500;display:flex;align-items:center;gap:6px;}
+.badge{background:var(--green);color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.card-arrow{color:var(--muted);font-size:13px;}
+.card-title{font-size:15px;font-weight:600;margin-bottom:6px;}
+.card-desc{font-size:13px;color:var(--dim);line-height:1.6;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-footer-row{border-top:1px solid var(--border);padding-top:10px;font-size:12px;color:var(--muted);}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 380px;background:#1e1e1e;min-height:420px;}
+.hero-left{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;}
+.hero-badge{display:flex;align-items:center;gap:8px;color:var(--green);font-size:12px;font-weight:500;margin-bottom:22px;}
+.hero-name{font-size:44px;font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:14px;}
+.hero-sub{font-size:15px;color:var(--dim);margin-bottom:12px;}
+.hero-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:28px;max-width:380px;}
+.hero-btns{display:flex;gap:10px;}
+.btn-g{background:var(--green);color:#000;border:none;border-radius:6px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-g:hover{background:#5dd46a;}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:6px;padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;}
+.section{padding:56px 64px;}
+.sec-title{font-size:26px;font-weight:700;margin-bottom:6px;}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:36px;}
+.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.expertise-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px;}
+.exp-title{font-size:14px;font-weight:600;margin-bottom:10px;}
+.exp-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+.page-hdr{padding:48px 64px 0;}
+.page-hdr-label{font-size:60px;font-weight:700;letter-spacing:-2px;margin-bottom:16px;}
+.page-hdr-desc{font-size:15px;color:var(--dim);max-width:640px;line-height:1.7;margin-bottom:36px;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;}
+.f-tab{background:transparent;border:1px solid var(--border);color:var(--dim);padding:7px 16px;border-radius:6px;font-size:13px;font-family:inherit;cursor:pointer;transition:.15s;}
+.f-tab:hover{border-color:#555;color:var(--text);}
+.f-tab.active{background:var(--green);border-color:var(--green);color:#000;font-weight:600;}
+.proj-section{padding:36px 64px 64px;}
+.about-hdr{padding:48px 64px 0;}
+.about-intro{font-size:15px;color:var(--dim);max-width:760px;line-height:1.75;margin-bottom:36px;}
+.about-photo{width:100%;height:300px;border-radius:var(--r);overflow:hidden;background:var(--bg3);border:1px solid var(--border);}
+.about-body{padding:48px 64px;}
+.about-section{margin-bottom:48px;}
+.a-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;}
+.phi-p{font-size:14px;color:var(--dim);line-height:1.8;margin-bottom:12px;max-width:820px;}
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
+.val-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:22px;}
+.val-icon{font-size:18px;color:var(--green);margin-bottom:8px;}
+.val-title{font-size:14px;font-weight:600;margin-bottom:6px;}
+.val-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.xp-item{padding:22px 0;border-bottom:1px solid var(--border);}
+.xp-item:last-child{border-bottom:none;}
+.xp-company{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.xp-role{font-size:15px;font-weight:600;margin-bottom:8px;}
+.xp-desc{font-size:13px;color:var(--dim);line-height:1.65;}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:8px;}
+.skill{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 14px;font-size:13px;color:var(--dim);}
+.cta-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:44px;text-align:center;}
+.cta-title{font-size:18px;font-weight:600;margin-bottom:8px;}
+.cta-desc{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.detail-wrap{padding:0 64px;}
+.back-btn{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--dim);font-size:14px;font-family:inherit;cursor:pointer;padding:32px 0 24px;transition:.15s;}
+.back-btn:hover{color:var(--text);}
+.detail-crumb{font-size:13px;color:var(--green);font-weight:500;margin-bottom:10px;}
+.detail-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.detail-title{font-size:26px;font-weight:700;}
+.detail-desc{font-size:14px;color:var(--dim);line-height:1.75;max-width:780px;margin-bottom:28px;}
+.detail-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:36px;}
+.meta-label{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.meta-val{font-size:13px;font-weight:500;}
+.meta-link{font-size:13px;color:var(--green);font-weight:500;cursor:pointer;}
+.meta-link:hover{text-decoration:underline;}
+.detail-hero-img{width:100%;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:48px;background:#111;height:340px;}
+.detail-section{margin-bottom:48px;}
+.detail-sec-title{font-size:26px;font-weight:700;margin-bottom:14px;}
+.detail-sec-text{font-size:14px;color:var(--dim);line-height:1.8;max-width:780px;}
+.detail-2col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:36px 0;}
+.detail-2col-img{border-radius:var(--r);border:1px solid var(--border);overflow:hidden;background:#111;height:200px;}
+.results-section{margin:36px 0;}
+.results-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:18px;}
+.result-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:14px;color:var(--dim);}
+.result-icon{color:var(--green);font-size:15px;flex-shrink:0;margin-top:1px;}
+.detail-cta-strip{border-top:1px solid var(--border);padding:40px 0;display:flex;align-items:center;justify-content:space-between;}
+.detail-cta-left .cta-title{font-size:18px;text-align:left;}
+.detail-cta-left .cta-desc{text-align:left;margin-bottom:0;}
+.ms{width:100%;height:100%;padding:10px;background:#111;display:flex;flex-direction:column;gap:5px;}
+.ms-hdr{display:flex;gap:6px;margin-bottom:4px;}
+.ms-hdr-item{height:4px;border-radius:1px;background:#333;flex:1;}
+.ms-row{display:flex;gap:4px;align-items:center;}
+.ms-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.ms-dot-g{background:#4a9e5a;}.ms-dot-y{background:#a07a20;}.ms-dot-r{background:#8a3030;}
+.ms-cell{height:5px;border-radius:2px;background:#2a2a2a;flex:1;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="go('home')">Portfolio</div>
+  <div class="nav-right">
+    <button class="nav-link active" id="nl-home" onclick="go('home')">Home</button>
+    <button class="nav-link" id="nl-projects" onclick="go('projects')">Projects</button>
+    <button class="nav-link" id="nl-about" onclick="go('about')">About</button>
+    <button class="nav-cta" onclick="window.open('mailto:veronica@souldelas.com')">Get in Touch</button>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="p-home" class="page active">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="#6ee87a"><path d="M8 1l1.5 4.5H14l-3.6 2.6 1.4 4.4L8 10 4.2 12.5l1.4-4.4L2 5.5h4.5z"/></svg>
+        Senior Product Designer &amp; AI Design Strategist
+      </div>
+      <h1 class="hero-name">Veronica Carraro</h1>
+      <p class="hero-sub">Designing intelligent systems for Cybersecurity, Data, and SaaS</p>
+      <p class="hero-desc">I craft experiences that transform complex challenges into clear, actionable solutions—bridging the gap between human intuition and machine intelligence.</p>
+      <div class="hero-btns">
+        <button class="btn-g" onclick="go('projects')">View Projects →</button>
+        <button class="btn-o" onclick="go('about')">About Me</button>
+      </div>
+    </div>
+    <div class="hero-right img-slot" onclick="triggerUpload('heroInput')" style="background:#252525;display:flex;align-items:center;justify-content:center;">
+      <img id="heroImg" class="slot-img" alt=""/>
+      <div class="slot-mock" style="display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);min-height:380px;justify-content:center;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:26px;">📷</div>
+        <span style="font-size:12px;">Clica para adicionar foto</span>
+      </div>
+      <div class="slot-overlay"><span>📁 Upload foto</span></div>
+      <input id="heroInput" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'heroImg')"/>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">Featured Projects</h2>
+    <p class="sec-sub">Selected work showcasing strategic design and AI integration</p>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="card-img img-slot" onclick="triggerUpload('hc-inp')">
+          <div class="slot-mock ms" id="hc-mock"></div>
+          <img id="hc-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="hc-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'hc-img','hc-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('cloud')">
+          <div class="card-tag-row"><span class="card-tag">Cloud Infrastructure</span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Cloud Portal: The Redesign</h3>
+          <p class="card-desc">Cloud Portal leverages infrastructure as code technology to enable business…</p>
+          <div class="card-footer-row">2025 • Lead Product Designer</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-img img-slot" onclick="triggerUpload('hco-inp')">
+          <div class="slot-mock ms" id="hco-mock"></div>
+          <img id="hco-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="hco-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'hco-img','hco-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('compliance')">
+          <div class="card-tag-row"><span class="card-tag">AI &amp; Governance <span class="badge">In Progress</span></span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Compliance AI</h3>
+          <p class="card-desc">An AI-powered GRC platform that helps organizations manage Governance,…</p>
+          <div class="card-footer-row">2026 • Senior Product Designer &amp; AI Design Strategist</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-img img-slot" onclick="triggerUpload('ht-inp')">
+          <div class="slot-mock ms" id="ht-mock"></div>
+          <img id="ht-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="ht-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'ht-img','ht-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('traact')">
+          <div class="card-tag-row"><span class="card-tag">Legal Tech &amp; SaaS</span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Traact</h3>
+          <p class="card-desc">An all-in-one, cloud-based solution designed to empower in-house legal…</p>
+          <div class="card-footer-row">2025 • Senior Product Designer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <h2 class="sec-title">Core Expertise</h2>
+    <p class="sec-sub">Specialized capabilities in complex technical domains</p>
+    <div class="expertise-grid">
+      <div class="expertise-card"><div class="exp-title">Cloud &amp; Infrastructure</div><p class="exp-desc">Creating intuitive orchestration platforms that democratize cloud resource deployment and infrastructure as code.</p></div>
+      <div class="expertise-card"><div class="exp-title">AI-Powered Solutions</div><p class="exp-desc">Designing intelligent systems for governance, compliance, learning, and analytics that leverage AI to enhance human capability.</p></div>
+      <div class="expertise-card"><div class="exp-title">Enterprise SaaS</div><p class="exp-desc">Building unified platforms for legal tech, finance, and cross-functional teams that eliminate silos and drive efficiency.</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== PROJECTS ===== -->
+<div id="p-projects" class="page">
+  <div class="page-hdr">
+    <div class="page-hdr-label">Projects</div>
+    <p class="page-hdr-desc">A collection of product design work focused on making complex systems accessible, intelligent, and human-centered.</p>
+    <div class="filters">
+      <button class="f-tab active" onclick="filterProj('all',this)">All</button>
+      <button class="f-tab" onclick="filterProj('cloud',this)">Cloud Infrastructure</button>
+      <button class="f-tab" onclick="filterProj('ai',this)">AI &amp; Governance</button>
+      <button class="f-tab" onclick="filterProj('legal',this)">Legal Tech &amp; SaaS</button>
+    </div>
+  </div>
+  <div class="proj-section">
+    <div class="project-grid" id="proj-grid">
+      <div class="project-card" data-cat="cloud">
+        <div class="card-img img-slot" onclick="triggerUpload('pc-inp')">
+          <div class="slot-mock ms" id="pc-mock"></div>
+          <img id="pc-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="pc-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'pc-img','pc-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('cloud')">
+          <div class="card-tag-row"><span class="card-tag">Cloud Infrastructure</span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Cloud Portal: The Redesign</h3>
+          <p class="card-desc">Cloud Portal leverages infrastructure as code technology to enable business</p>
+          <div class="card-footer-row">2025 • Lead Product Designer</div>
+        </div>
+      </div>
+      <div class="project-card" data-cat="ai">
+        <div class="card-img img-slot" onclick="triggerUpload('pco-inp')">
+          <div class="slot-mock ms" id="pco-mock"></div>
+          <img id="pco-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="pco-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'pco-img','pco-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('compliance')">
+          <div class="card-tag-row"><span class="card-tag">AI &amp; Governance <span class="badge">In Progress</span></span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Compliance AI</h3>
+          <p class="card-desc">An AI-powered GRC platform that helps organizations manage</p>
+          <div class="card-footer-row">2026 • Senior Product Designer &amp; AI Design Strategist</div>
+        </div>
+      </div>
+      <div class="project-card" data-cat="legal">
+        <div class="card-img img-slot" onclick="triggerUpload('pt-inp')">
+          <div class="slot-mock ms" id="pt-mock"></div>
+          <img id="pt-img" class="slot-img" alt=""/>
+          <div class="slot-overlay"><span>📁 Upload imagem</span></div>
+          <input id="pt-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'pt-img','pt-mock')"/>
+        </div>
+        <div class="card-body" onclick="openDetail('traact')">
+          <div class="card-tag-row"><span class="card-tag">Legal Tech &amp; SaaS</span><span class="card-arrow">↗</span></div>
+          <h3 class="card-title">Traact</h3>
+          <p class="card-desc">An all-in-one, cloud-based solution designed to empower in-house</p>
+          <div class="card-footer-row">2025 • Senior Product Designer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<div id="p-about" class="page">
+  <div class="about-hdr">
+    <div class="page-hdr-label">About Me</div>
+    <p class="about-intro">I'm a Senior Product Designer and AI Design Strategist with a passion for creating intelligent, human-centered experiences in complex domains.</p>
+    <div class="about-photo img-slot" onclick="triggerUpload('aboutInput')">
+      <img id="aboutImg" class="slot-img" alt=""/>
+      <div class="slot-mock" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;color:var(--muted);">
+        <div style="font-size:28px;">📷</div>
+        <span style="font-size:12px;">Clica para adicionar foto do workspace</span>
+      </div>
+      <div class="slot-overlay"><span>📁 Upload foto</span></div>
+      <input id="aboutInput" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'aboutImg')"/>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="about-section">
+      <div class="a-label">Design Philosophy</div>
+      <p class="phi-p">I believe great design isn't about adding complexity—it's about revealing clarity. In domains like cybersecurity, data analytics, and enterprise SaaS, users are already navigating inherently complex systems. My role is to cut through that complexity and create experiences that feel intuitive, purposeful, and empowering.</p>
+      <p class="phi-p">As an AI Design Strategist, I'm particularly focused on the intersection of human intelligence and machine learning. I work to ensure that AI enhances rather than obscures the user experience, making sophisticated technology feel accessible and trustworthy.</p>
+      <p class="phi-p">My approach is systematic and strategic—I don't just design interfaces, I architect experiences that align with business goals, user needs, and technical constraints. Every decision is intentional, every interaction is considered.</p>
+    </div>
+    <div class="about-section">
+      <div class="a-label">Core Values</div>
+      <div class="values-grid">
+        <div class="val-card"><div class="val-icon">💡</div><div class="val-title">Clarity over Complexity</div><p class="val-desc">Distilling complex systems into intuitive, understandable experiences.</p></div>
+        <div class="val-card"><div class="val-icon">🤝</div><div class="val-title">Human-Centered AI</div><p class="val-desc">Ensuring machine intelligence serves and amplifies human capability.</p></div>
+        <div class="val-card"><div class="val-icon">🏛️</div><div class="val-title">Strategic Thinking</div><p class="val-desc">Aligning design decisions with business objectives and user outcomes.</p></div>
+        <div class="val-card"><div class="val-icon">⚙️</div><div class="val-title">Systematic Excellence</div><p class="val-desc">Building scalable, maintainable design systems that grow with products.</p></div>
+      </div>
+    </div>
+    <div class="about-section">
+      <div class="a-label">Experience</div>
+      <div class="xp-item"><div class="xp-company">Redesign Group Inc. • 2022 – Present</div><div class="xp-role">Senior Product Designer</div><p class="xp-desc">Leading design for cloud infrastructure orchestration and AI-powered compliance platforms. Creating intuitive experiences for complex enterprise systems serving cybersecurity, data, and SaaS stakeholders.</p></div>
+      <div class="xp-item"><div class="xp-company">Traact • 2021 – 2023</div><div class="xp-role">Product Designer</div><p class="xp-desc">Designed unified platform for legal operations, finance, and cross-functional teams. Built comprehensive design system and user experiences that eliminated organizational silos and drove operational efficiency.</p></div>
+      <div class="xp-item"><div class="xp-company">Various Tech Companies • 2019 – 2021</div><div class="xp-role">UX/UI Designer</div><p class="xp-desc">Specialized in enterprise SaaS and data-intensive applications. Focused on transforming complex workflows into clear, actionable interfaces that empower users.</p></div>
+    </div>
+    <div class="about-section">
+      <div class="a-label">Skills &amp; Expertise</div>
+      <div class="skills-wrap">
+        <span class="skill">Product Design</span><span class="skill">AI/UX Integration</span><span class="skill">Design Systems</span><span class="skill">User Research</span><span class="skill">Prototyping</span><span class="skill">Visual Design</span><span class="skill">Interaction Design</span><span class="skill">Strategic Planning</span><span class="skill">Stakeholder Management</span><span class="skill">Cross-functional Leadership</span>
+      </div>
+    </div>
+  </div>
+  <div class="cta-box" style="margin:0 64px 64px;">
+    <div class="cta-title">Let's Work Together</div>
+    <p class="cta-desc">I'm always interested in new opportunities to solve complex design challenges and create impactful experiences.</p>
+    <button class="btn-g" onclick="window.open('https://www.linkedin.com/in/veronicacarraro/','_blank')">LinkedIn</button>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== DETAIL: CLOUD PORTAL ===== -->
+<div id="p-detail-cloud" class="page">
+  <div class="detail-wrap">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-crumb">Cloud Infrastructure • 2025</div>
+    <h1 class="detail-title" style="margin-bottom:12px;">Cloud Portal: The Redesign</h1>
+    <p class="detail-desc">Cloud Portal leverages infrastructure as code technology to enable business users, software developers and IT Operations teams to rapidly deploy cloud resources with automation.</p>
+    <div class="detail-meta">
+      <div><div class="meta-label">Role</div><div class="meta-val">Lead Product Designer</div></div>
+      <div><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
+      <div><div class="meta-label">Tools</div><div class="meta-val">Figma, Infrastructure as Code, React, Cloud APIs</div></div>
+      <div><div class="meta-label">Project Link</div><a class="meta-link" href="https://www.redesign-group.com/cloud" target="_blank">View Live ↗</a></div>
+    </div>
+
+    <!-- Hero image upload -->
+    <div class="detail-hero-img img-slot" onclick="triggerUpload('dc-h-inp')" style="display:flex;align-items:center;justify-content:center;">
+      <img id="dc-h-img" class="slot-img" alt=""/>
+      <div class="slot-mock" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted);">
+        <div style="font-size:32px;">🖼️</div>
+        <span style="font-size:12px;">Clica para adicionar screenshot do projeto</span>
+      </div>
+      <div class="slot-overlay"><span>📁 Upload screenshot</span></div>
+      <input id="dc-h-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dc-h-img')"/>
+    </div>
+
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Challenge</h2>
+      <p class="detail-sec-text">Organizations struggled with complex cloud resource provisioning processes that required deep technical expertise, creating bottlenecks between business needs and IT delivery. Teams faced fragmented tools and manual workflows that slowed deployment times and increased the risk of configuration errors.</p>
+    </div>
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Solution</h2>
+      <p class="detail-sec-text">Designed an orchestration platform that democratizes cloud resource deployment through an intuitive interface. The platform enables users to create their own virtual private cloud and provision network, server, virtual desktops, and high-performance storage resources on demand using infrastructure as code technology.</p>
+    </div>
+
+    <div class="detail-2col">
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dc-1-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dc-1-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dc-1-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dc-1-img')"/>
+      </div>
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dc-2-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dc-2-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dc-2-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dc-2-img')"/>
+      </div>
+    </div>
+
+    <div class="results-section">
+      <div class="results-label">Impact &amp; Results</div>
+      <div class="result-item"><span class="result-icon">✓</span>Reduced cloud resource deployment time from days to minutes</div>
+      <div class="result-item"><span class="result-icon">✓</span>Enabled non-technical users to self-service cloud infrastructure</div>
+      <div class="result-item"><span class="result-icon">✓</span>Decreased configuration errors through automated provisioning</div>
+      <div class="result-item"><span class="result-icon">✓</span>Accelerated development cycles across business units</div>
+    </div>
+    <div class="detail-cta-strip">
+      <div class="detail-cta-left"><div class="cta-title">Interested in learning more?</div><p class="cta-desc">Let's discuss how strategic design can transform your product.</p></div>
+      <button class="btn-g" onclick="window.open('mailto:veronica@souldelas.com')">Get in Touch ↗</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== DETAIL: COMPLIANCE AI ===== -->
+<div id="p-detail-compliance" class="page">
+  <div class="detail-wrap">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-crumb">AI &amp; Governance • 2026</div>
+    <div class="detail-title-row">
+      <h1 class="detail-title">Compliance AI</h1>
+      <span class="badge" style="font-size:12px;padding:4px 12px;">In Progress</span>
+    </div>
+    <p class="detail-desc">An AI-powered GRC platform that helps organizations manage Governance, Risk, and Compliance using artificial intelligence to reduce manual effort, increase clarity, and continuously improve security posture.</p>
+    <div class="detail-meta">
+      <div><div class="meta-label">Role</div><div class="meta-val">Senior Product Designer &amp; AI Design Strategist</div></div>
+      <div><div class="meta-label">Year</div><div class="meta-val">2026</div></div>
+      <div><div class="meta-label">Tools</div><div class="meta-val">Figma, Machine Learning, Python, React</div></div>
+      <div><div class="meta-label">Project Link</div><a class="meta-link" href="https://www.redesign-group.com/trust/trust-portal" target="_blank">View Live ↗</a></div>
+    </div>
+
+    <div class="detail-hero-img img-slot" onclick="triggerUpload('dco-h-inp')" style="display:flex;align-items:center;justify-content:center;">
+      <img id="dco-h-img" class="slot-img" alt=""/>
+      <div class="slot-mock" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted);">
+        <div style="font-size:32px;">🖼️</div>
+        <span style="font-size:12px;">Clica para adicionar screenshot do projeto</span>
+      </div>
+      <div class="slot-overlay"><span>📁 Upload screenshot</span></div>
+      <input id="dco-h-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dco-h-img')"/>
+    </div>
+
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Challenge</h2>
+      <p class="detail-sec-text">Organizations face overwhelming complexity in managing governance, risk, and compliance across multiple frameworks and regulations. Manual compliance processes are time-consuming, error-prone, and struggle to keep pace with evolving security requirements and regulatory changes.</p>
+    </div>
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Solution</h2>
+      <p class="detail-sec-text">Designing an AI-powered GRC platform that automates compliance workflows, provides intelligent risk assessments, and offers real-time visibility into organizational security posture. The system uses machine learning to identify compliance gaps, suggest remediation actions, and continuously adapt to changing regulatory landscapes.</p>
+    </div>
+
+    <div class="detail-2col">
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dco-1-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dco-1-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dco-1-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dco-1-img')"/>
+      </div>
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dco-2-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dco-2-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dco-2-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dco-2-img')"/>
+      </div>
+    </div>
+
+    <div class="results-section">
+      <div class="results-label">Impact &amp; Results</div>
+      <div class="result-item"><span class="result-icon">✓</span>Automated 75% of manual compliance tasks</div>
+      <div class="result-item"><span class="result-icon">✓</span>Reduced compliance assessment time by 60%</div>
+      <div class="result-item"><span class="result-icon">✓</span>Improved risk visibility across the organization</div>
+      <div class="result-item"><span class="result-icon">✓</span>Enabled proactive security posture management</div>
+    </div>
+    <div class="detail-cta-strip">
+      <div class="detail-cta-left"><div class="cta-title">Interested in learning more?</div><p class="cta-desc">Let's discuss how strategic design can transform your product.</p></div>
+      <button class="btn-g" onclick="window.open('mailto:veronica@souldelas.com')">Get in Touch ↗</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== DETAIL: TRAACT ===== -->
+<div id="p-detail-traact" class="page">
+  <div class="detail-wrap">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-crumb">Legal Tech &amp; SaaS • 2025</div>
+    <h1 class="detail-title" style="margin-bottom:12px;">Traact</h1>
+    <p class="detail-desc">An all-in-one, cloud-based solution designed to empower in-house legal and finance teams by eliminating administrative silos.</p>
+    <div class="detail-meta">
+      <div><div class="meta-label">Role</div><div class="meta-val">Senior Product Designer</div></div>
+      <div><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
+      <div><div class="meta-label">Tools</div><div class="meta-val">Figma, React, TypeScript, Cloud Infrastructure</div></div>
+      <div><div class="meta-label">Project Link</div><a class="meta-link" href="https://www.traact.com/" target="_blank">View Live ↗</a></div>
+    </div>
+
+    <div class="detail-hero-img img-slot" onclick="triggerUpload('dt-h-inp')" style="display:flex;align-items:center;justify-content:center;">
+      <img id="dt-h-img" class="slot-img" alt=""/>
+      <div class="slot-mock" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted);">
+        <div style="font-size:32px;">🖼️</div>
+        <span style="font-size:12px;">Clica para adicionar screenshot do projeto</span>
+      </div>
+      <div class="slot-overlay"><span>📁 Upload screenshot</span></div>
+      <input id="dt-h-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dt-h-img')"/>
+    </div>
+
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Challenge</h2>
+      <p class="detail-sec-text">In-house legal and finance teams struggled with fragmented systems for entity management, contract lifecycle, matter management, and license tracking. This created administrative silos, reduced visibility, and led to compliance risks across global operations. Organizations needed a unified solution to reduce operational overhead while maintaining compliance across 130+ countries.</p>
+    </div>
+    <div class="detail-section">
+      <h2 class="detail-sec-title">The Solution</h2>
+      <p class="detail-sec-text">Designed a centralized platform that integrates essential corporate functions into one cohesive system. The platform automates repetitive tasks, provides real-time visibility through instant org charts and comprehensive reporting, and streamlines workflows for entity management, contract lifecycle automation, matter management, and license tracking.</p>
+    </div>
+
+    <div class="detail-2col">
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dt-1-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dt-1-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dt-1-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dt-1-img')"/>
+      </div>
+      <div class="detail-2col-img img-slot" onclick="triggerUpload('dt-2-inp')" style="display:flex;align-items:center;justify-content:center;">
+        <img id="dt-2-img" class="slot-img" alt=""/>
+        <div class="slot-mock" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;height:100%;color:var(--muted);">
+          <div style="font-size:22px;">🖼️</div><span style="font-size:11px;">Upload screenshot</span>
+        </div>
+        <div class="slot-overlay"><span>📁 Upload</span></div>
+        <input id="dt-2-inp" type="file" accept="image/*" style="display:none" onchange="slotLoad(this,'dt-2-img')"/>
+      </div>
+    </div>
+
+    <div class="results-section">
+      <div class="results-label">Impact &amp; Results</div>
+      <div class="result-item"><span class="result-icon">✓</span>Reduced operational costs by an average of 32%</div>
+      <div class="result-item"><span class="result-icon">✓</span>Eliminated administrative silos across legal and finance teams</div>
+      <div class="result-item"><span class="result-icon">✓</span>Enabled compliance management across 130+ countries</div>
+      <div class="result-item"><span class="result-icon">✓</span>Improved visibility with real-time org charts and reporting</div>
+      <div class="result-item"><span class="result-icon">✓</span>Automated contract lifecycle and entity management workflows</div>
+    </div>
+    <div class="detail-cta-strip">
+      <div class="detail-cta-left"><div class="cta-title">Interested in learning more?</div><p class="cta-desc">Let's discuss how strategic design can transform your product.</p></div>
+      <button class="btn-g" onclick="window.open('mailto:veronica@souldelas.com')">Get in Touch ↗</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Portfolio</div><p class="footer-desc">Senior Product Designer &amp; AI Design Strategist specializing in Cybersecurity, Data, and SaaS products.</p></div>
+      <div><div class="footer-col-title">Navigation</div><button class="f-link" onclick="go('home')">Home</button><button class="f-link" onclick="go('projects')">Projects</button><button class="f-link" onclick="go('about')">About</button></div>
+      <div><div class="footer-col-title">Connect</div><a class="f-link" href="https://www.linkedin.com/in/veronicacarraro/" target="_blank">LinkedIn</a><a class="f-link" href="mailto:veronica@souldelas.com">Email</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 All rights reserved.</div>
+  </footer>
+</div>
+
+<script>
+let prevPage='projects';
+
+// ── Upload system ──────────────────────────────
+function triggerUpload(inputId){
+  document.getElementById(inputId).click();
+}
+function slotLoad(input, imgId, mockId){
+  const file=input.files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const img=document.getElementById(imgId);
+    img.src=e.target.result;
+    img.style.display='block';
+    if(mockId){
+      const mock=document.getElementById(mockId);
+      if(mock) mock.style.display='none';
+    } else {
+      // hide first slot-mock sibling
+      const slot=input.closest('.img-slot');
+      const mock=slot.querySelector('.slot-mock');
+      if(mock) mock.style.display='none';
+    }
+  };
+  r.readAsDataURL(file);
+}
+
+// ── Card mocks ─────────────────────────────────
+function renderMock(id,type){
+  const el=document.getElementById(id); if(!el)return;
+  const rows=['g','y','r','g','g','y','r','g'];
+  if(type==='cloud'){
+    el.innerHTML=`<div class="ms-hdr"><div class="ms-hdr-item"></div><div class="ms-hdr-item" style="flex:.5"></div></div>`
+      +rows.map(c=>`<div class="ms-row"><div class="ms-dot ms-dot-${c}"></div><div class="ms-cell"></div><div class="ms-cell" style="flex:.8"></div><div class="ms-cell" style="flex:.4;background:${c==='g'?'#2a4a30':'#3a2020'}"></div></div>`).join('');
+  } else if(type==='comp'){
+    el.innerHTML=`<div class="ms-hdr"><div class="ms-hdr-item"></div><div class="ms-hdr-item"></div><div class="ms-hdr-item" style="flex:.3;background:#3a6a44"></div></div><div style="display:flex;gap:6px;flex:1;margin-top:4px;"><div style="flex:1;background:#1a1a1a;border-radius:3px;padding:6px;display:flex;flex-direction:column;gap:4px;"><div style="height:4px;background:#333;border-radius:1px;width:80%;"></div><div style="height:4px;background:#333;border-radius:1px;width:60%;"></div><div style="height:10px;background:#3a7a44;border-radius:3px;width:60%;align-self:flex-end;margin-top:6px;"></div><div style="height:8px;background:#2a2a2a;border-radius:3px;width:50%;margin-top:3px;"></div><div style="height:8px;background:#3a7a44;border-radius:3px;width:55%;align-self:flex-end;margin-top:3px;"></div></div></div>`;
+  } else if(type==='traact'){
+    el.innerHTML=`<div class="ms-hdr"><div class="ms-hdr-item"></div><div class="ms-hdr-item" style="flex:.4;background:#2a3a5a"></div></div>`
+      +[1,2,3,4,5,6,7].map(i=>`<div class="ms-row"><div class="ms-cell" style="${i%3===0?'background:#2a3a5a':''}"></div><div class="ms-cell" style="${i%2===0?'background:#2a3a5a':''}"></div><div class="ms-cell" style="flex:.5;${i%4===0?'background:#2a3a5a':''}"></div></div>`).join('');
+  }
+}
+['hc-mock','pc-mock'].forEach(id=>renderMock(id,'cloud'));
+['hco-mock','pco-mock'].forEach(id=>renderMock(id,'comp'));
+['ht-mock','pt-mock'].forEach(id=>renderMock(id,'traact'));
+
+// ── Navigation ─────────────────────────────────
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('p-'+page).classList.add('active');
+  const nl=document.getElementById('nl-'+page);
+  if(nl) nl.classList.add('active');
+  window.scrollTo(0,0);
+}
+function openDetail(key){
+  const cur=document.querySelector('.page.active');
+  prevPage=cur?cur.id.replace('p-',''):'projects';
+  if(prevPage.startsWith('detail')) prevPage='projects';
+  go('detail-'+key);
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('nl-projects').classList.add('active');
+}
+function goBack(){ go(prevPage); }
+
+function exportSite(){
+  // Capture current HTML with all embedded images
+  const clone = document.documentElement.cloneNode(true);
+  // Remove export button from export
+  clone.querySelectorAll('button[onclick="exportSite()"]').forEach(b=>b.remove());
+  // Remove all file inputs
+  clone.querySelectorAll('input[type=file]').forEach(i=>i.remove());
+  // Embed current image src values
+  document.querySelectorAll('img.slot-img').forEach(img=>{
+    if(img.src && img.src.startsWith('data:')){
+      const cloneImg = clone.querySelector('#'+img.id);
+      if(cloneImg){ cloneImg.src=img.src; cloneImg.style.display='block'; }
+      // Hide mock in clone
+      const slot = img.closest('.img-slot');
+      if(slot){
+        const cloneSlot = clone.querySelector('#'+img.id)?.closest('.img-slot');
+        if(cloneSlot){ const mock=cloneSlot.querySelector('.slot-mock'); if(mock) mock.style.display='none'; }
+      }
+    }
+  });
+  // Remove slot-overlay and upload triggers from clone
+  clone.querySelectorAll('.slot-overlay').forEach(o=>o.remove());
+  clone.querySelectorAll('.img-slot').forEach(el=>{
+    el.removeAttribute('onclick');
+    el.style.cursor='default';
+  });
+  // Make all pages visible for static export (only home active)
+  clone.querySelectorAll('.page').forEach(p=>{ if(!p.classList.contains('active')) p.style.display='none'; });
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'portfolio-veronica-carraro.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function filterProj(cat,btn){
+  document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#proj-grid .project-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none';
+  });
+}
+</script>
+</body>
+</html>
